@@ -10,7 +10,7 @@
 
 echo "Update some parameters from USB..."
 
-DeviceName=`def view management | grep "Device Name" | awk '{ print $4 }'`
+DeviceName=`def view management | grep -w "Device Name" | awk '{ print $4 }'`
 echo "DeviceName=" $DeviceName
 
 [ ! -e /tmp/usb/set_params.sh ] && {
@@ -18,7 +18,7 @@ echo "DeviceName=" $DeviceName
 	exit
 }
 
-UpdateDeviceName=`cat /tmp/usb/set_params.sh | grep "def name" | awk '{ print $3 }'`
+UpdateDeviceName=`grep -w "def name" /tmp/usb/set_params.sh | head -1 | awk '{ print $3 }'`
 echo "UpdateDeviceName=" $UpdateDeviceName
 
 [ $DeviceName = $UpdateDeviceName ] && {
